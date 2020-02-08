@@ -105,6 +105,11 @@ export default class PhoneLogin extends Mixins(loginMixin) {
 
     this.loginHandle(result)
   }
+
+  // 退出时，销毁定制器
+  beforeDestroy() {
+    clearInterval(this.timer)
+  }
 }
 </script>
 

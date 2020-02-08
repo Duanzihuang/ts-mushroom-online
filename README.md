@@ -1,24 +1,15 @@
 # ts-mushroom-online
 
-## Project setup
+## 项目简介
 ```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
+使用typescript + vue 构建的在线学习App，蘑菇在线
 ```
 
-### Compiles and minifies for production
-```
-yarn build
-```
+## 涉及的技术点
 
-### Lints and fixes files
-```
-yarn lint
-```
+1. typescript
+2. vue
+3. vuex
+4. vue-router
+5. minix
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

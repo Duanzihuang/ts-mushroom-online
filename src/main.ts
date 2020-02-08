@@ -10,6 +10,12 @@ Vue.use(Toast)
 
 Vue.config.productionTip = false
 
+// 从本地获取token，然后赋值给store
+const my_token = localStorage.getItem('my_token')
+if (my_token) {
+  store.commit('token/setToken',my_token)
+}
+
 new Vue({
   router,
   store,
