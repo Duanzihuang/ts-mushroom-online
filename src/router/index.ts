@@ -13,6 +13,7 @@ import Home from '../views/home/index.vue'
 import Course from '../views/course/index.vue'
 import Study from '../views/study/index.vue'
 import My from '../views/my/index.vue'
+import CourseDetail from '../views/course-detail/index.vue'
 
 const routes = [
   {
@@ -56,6 +57,11 @@ const routes = [
         component: My
       }
     ]
+  },
+  {
+    path: '/course-detail/:id',
+    name: 'CourseDetail',
+    component: CourseDetail
   }
 ]
 

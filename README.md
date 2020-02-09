@@ -10,6 +10,7 @@
 1. typescript
 2. vue
 3. vuex
-4. vue-router
+4. vue-router（history模式）
 5. minix
-
+6. vant
+7. axios

@@ -1,6 +1,8 @@
 <template>
   <div class="layout">
-    <router-view />
+    <div class="content">
+      <router-view />
+    </div>
     <van-tabbar inactive-color="#999" active-color="#ff9a29" v-model="active">
       <van-tabbar-item replace to="/layout/home" :icon="active === 0 ? homeSelectIcon : homeIcon">
         首页</van-tabbar-item>
@@ -66,5 +68,8 @@ export default class Layout extends Vue {
 <style lang="scss" scoped>
 .layout {
   height: 100%;
+}
+.content{
+  padding-bottom: 50px;
 }
 </style>
