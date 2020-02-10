@@ -136,6 +136,7 @@ export default class PhoneLogin extends Mixins(loginMixin) {
       display: block;
       position: relative;
       border: none;
+      background-color: #f8f8f8;
       border-bottom: 1px solid #e9e9e9;
       width: 100%;
     }
@@ -161,6 +162,7 @@ export default class PhoneLogin extends Mixins(loginMixin) {
       position: relative;
       display: block;
       border: none;
+      background-color: #f8f8f8;
       border-bottom: 1px solid #e9e9e9;
     }
   }

@@ -10,4 +10,7 @@
 body{
   background-color: #f8f8f8;
 }
+p{
+  margin: 0;
+}
 </style>
