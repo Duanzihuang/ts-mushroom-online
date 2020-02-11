@@ -14,6 +14,8 @@ import Course from '../views/course/index.vue'
 import Study from '../views/study/index.vue'
 import My from '../views/my/index.vue'
 import CourseDetail from '../views/course-detail/index.vue'
+import Play from '../views/play/index.vue'
+import Pay from '../views/pay/index.vue'
 
 const routes = [
   {
@@ -62,6 +64,16 @@ const routes = [
     path: '/course-detail/:id',
     name: 'CourseDetail',
     component: CourseDetail
+  },
+  {
+    path: '/play/:id',
+    name: 'Play',
+    component: Play
+  },
+  {
+    path: '/pay',
+    name: 'Pay',
+    component: Pay
   }
 ]
 
