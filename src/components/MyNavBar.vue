@@ -1,6 +1,12 @@
 <template>
   <div>
-    <van-nav-bar :title="title" @click-left="onClickLeft" :left-text="leftText" left-arrow>
+    <van-nav-bar
+      fixed
+      :title="title"
+      @click-left="onClickLeft"
+      :left-text="leftText"
+      :left-arrow="isShowLeftArrow"
+    >
       <slot />
     </van-nav-bar>
   </div>
@@ -15,8 +21,9 @@ import { NavBar } from 'vant'
   }
 })
 export default class MyNavBar extends Vue {
-  @Prop() title?:string
-  @Prop() leftText?:string
+  @Prop() title?: string
+  @Prop() leftText?: string
+  @Prop({ type: Boolean, default: true }) isShowLeftArrow?: boolean
 
   onClickLeft() {
     this.$router.back()
@@ -25,7 +32,7 @@ export default class MyNavBar extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.van-nav-bar .van-icon{
+.van-nav-bar .van-icon {
   color: black;
   font-size: 22px;
 }

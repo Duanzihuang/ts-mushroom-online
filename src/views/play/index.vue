@@ -16,6 +16,9 @@
           <span>时长:{{ courseDetail.course.course_duration }}</span>
         </div>
       </div>
+      <modal @close="isShowCommentModal = false" :visible="isShowCommentModal">
+        111
+      </modal>
       <div class="comment">
         <img @click="evaluate" src="../../assets/images/evaluate@2x.png" alt />
       </div>
@@ -46,12 +49,14 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import NavBar from '../../components/MyNavBar.vue'
+import Modal from '../../components/Modal.vue'
 import { Dialog } from 'vant'
 
 // 参考：https://www.jianshu.com/p/7ed6d954164f?utm_source=oschina-app
 @Component({
   components: {
-    NavBar
+    NavBar,
+    Modal
   }
 })
 export default class Play extends Vue {
@@ -59,7 +64,8 @@ export default class Play extends Vue {
     return {
       courseDetail: null, // 课程详情
       videoUrl: null, // 播放视频的url地址
-      playIndex: 0 // 播放的索引
+      playIndex: 0, // 播放的索引
+      isShowCommentModal: false // 是否显示评论框
     }
   }
 
@@ -104,8 +110,24 @@ export default class Play extends Vue {
   }
 
   // 评价
-  evaluate() {
-    console.log('111')
+  async evaluate() {
+    // 查询是否学习完毕了该课程，如果是则弹出评论对话框，如果不是，则提示
+    const res = await this.$axios.get('study/complete', {
+      params: {
+        ['course_id']: this.$route.params.id
+      }
+    })
+
+    if (res.data.complete) {
+      // 学习完毕了，可以评论了
+      this.isShowCommentModal = true
+    } else {
+      // 没有学习完毕
+      Dialog.alert({
+        title: '提示',
+        message: '需要学习完课程才能评价哦~'
+      })
+    }
   }
 
   // 播放某个视频

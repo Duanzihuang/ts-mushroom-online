@@ -12,5 +12,6 @@
 3. vuex
 4. vue-router（history模式）
 5. minix
-6. vant
-7. axios
+6. slot
+7. vant
+8. axios

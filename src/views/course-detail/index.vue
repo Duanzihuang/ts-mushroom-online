@@ -1,5 +1,9 @@
 <template>
-  <div class="course-detail-container" v-if="courseDetail">
+  <div
+    style="padding-top:46px;"
+    class="course-detail-container"
+    v-if="courseDetail"
+  >
     <!-- 导航条 -->
     <nav-bar title="课程详情" />
     <!-- 1.0 封面图 -->

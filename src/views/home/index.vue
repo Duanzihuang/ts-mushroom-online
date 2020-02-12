@@ -1,25 +1,31 @@
 <template>
   <div class="home-container">
+    <!-- NavBar -->
+    <nav-bar title="酷丁鱼课堂" :isShowLeftArrow="false" />
     <!-- 搜索条 -->
     <search-bar tips="请输入课程的名称"></search-bar>
     <!-- 轮播图 -->
     <van-swipe class="swipe" :autoplay="3000" indicator-color="white">
       <van-swipe-item v-for="item in swipers" :key="item.id" class="swipe-item">
-          <router-link :to="'/course-detail/'+item.course_id">
-            <img :src="item.img_url" alt="">
-          </router-link>
+        <router-link :to="'/course-detail/' + item.course_id">
+          <img :src="item.img_url" alt="" />
+        </router-link>
       </van-swipe-item>
     </van-swipe>
-     <!-- 推荐课程 -->
-     <div>
+    <!-- 推荐课程 -->
+    <div>
       <div class="tips">
         <p>推荐课程</p>
-        <img @click="goToCoursePage" src="../../assets/images/arrow@2x.png" alt />
+        <img
+          @click="goToCoursePage"
+          src="../../assets/images/arrow@2x.png"
+          alt
+        />
       </div>
       <div class="course-container">
         <div class="course-item" v-for="item in courses" :key="item.id">
-          <router-link :to="'/course-detail/'+item.relation_id">
-            <img :src="item.icon" alt="">
+          <router-link :to="'/course-detail/' + item.relation_id">
+            <img :src="item.icon" alt="" />
           </router-link>
         </div>
       </div>
@@ -28,17 +34,21 @@
     <div>
       <div class="tips">
         <p>热门视频</p>
-        <img @click="goToCourseDetail(3)" src="../../assets/images/arrow@2x.png" alt />
+        <img
+          @click="goToCourseDetail(3)"
+          src="../../assets/images/arrow@2x.png"
+          alt
+        />
       </div>
       <div class="hot-video">
         <div class="video-item" v-for="item in videos" :key="item.id">
-          <router-link :to="'/course-detail/'+item.course_id">
+          <router-link :to="'/course-detail/' + item.course_id">
             <img :src="item.cover_photo_url" alt />
             <div>
-              <p class="title">{{item.name}}</p>
+              <p class="title">{{ item.name }}</p>
             </div>
             <div>
-              <p class="subtitle">{{item.view_count}}人已观看</p>
+              <p class="subtitle">{{ item.view_count }}人已观看</p>
             </div>
           </router-link>
         </div>
@@ -51,11 +61,13 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Swipe, SwipeItem } from 'vant'
 import SearchBar from '../../components/SearchBar.vue'
+import NavBar from '../../components/MyNavBar.vue'
 
 @Component({
   components: {
-    "van-swipe":Swipe, 
-    "van-swipe-item":SwipeItem,
+    'van-swipe': Swipe,
+    'van-swipe-item': SwipeItem,
+    NavBar,
     SearchBar
   }
 })
@@ -99,7 +111,7 @@ export default class Home extends Vue {
   }
   // 跳转到课程详情页面
   goToCourseDetail(id: number) {
-    this.$router.push('/course-detail/'+id)
+    this.$router.push('/course-detail/' + id)
   }
 }
 </script>
@@ -139,8 +151,8 @@ export default class Home extends Vue {
 .course-container {
   height: 85px;
   white-space: nowrap;
-  overflow-x:auto;
-  overflow-y:hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   .course-item {
     width: 148px;
     height: 84px;
@@ -158,10 +170,10 @@ export default class Home extends Vue {
   justify-content: space-between;
   align-items: center;
   .video-item {
-    width: 150px;
+    width: 170px;
     img {
-      width: 150px;
-      height: 95px;
+      width: 170px;
+      height: 115px;
       border-radius: 6px;
     }
     .title {
@@ -176,7 +188,7 @@ export default class Home extends Vue {
     }
   }
 }
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
 }
 </style>
