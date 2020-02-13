@@ -190,6 +190,7 @@ export default class Play extends Vue {
 
 <style lang="scss" scoped>
 .play-container {
+  padding-top: 46px;
   background-color: #efefef;
   position: relative;
   .cover_image {

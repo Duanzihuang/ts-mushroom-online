@@ -11,6 +11,7 @@ import PhoneLogin from '../views/phone-login/index.vue'
 import Layout from '../views/layout/index.vue'
 import Home from '../views/home/index.vue'
 import Course from '../views/course/index.vue'
+import Search from '../views/search/index.vue'
 import Study from '../views/study/index.vue'
 import My from '../views/my/index.vue'
 import CourseDetail from '../views/course-detail/index.vue'
@@ -53,12 +54,18 @@ const routes = [
         path: 'study',
         name: 'Study',
         component: Study
-      },{
+      },
+      {
         path: 'my',
         name: 'My',
         component: My
       }
     ]
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search
   },
   {
     path: '/course-detail/:id',
@@ -84,7 +91,7 @@ const router = new VueRouter({
 })
 
 // 权限控制
-router.beforeEach((to,from,next) => {
+router.beforeEach((to, from, next) => {
   // 不需要授权的页面，直接进入
   if (to.meta.needAuth === false) {
     next()

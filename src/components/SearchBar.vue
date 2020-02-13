@@ -1,7 +1,7 @@
 <template>
-  <div class="weui-search-bar__box">
+  <div @click="goToSearch" class="weui-search-bar__box">
     <i class="iconfont icon-sousuo"></i>
-    <p class="weui-search-bar__input">{{tips}}</p>
+    <p class="weui-search-bar__input">{{ tips }}</p>
   </div>
 </template>
 
@@ -13,6 +13,10 @@ export default class HelloWorld extends Vue {
   @Prop() tips!: string
 
   search() {
+    this.$router.push('/search')
+  }
+
+  goToSearch() {
     this.$router.push('/search')
   }
 }
@@ -27,7 +31,7 @@ $weuiSearchBarHeight: 36px;
   left: 8px;
   top: 8px;
 }
-.icon-sousuo{
+.icon-sousuo {
   color: #ff8d44;
   font-size: 18px;
 }

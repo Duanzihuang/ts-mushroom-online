@@ -120,6 +120,7 @@ export default class Home extends Vue {
 .home-container {
   padding: 8px 8px 0 8px;
   background-color: #fff;
+  padding-top: 46px;
 }
 .swipe {
   width: 100%;
