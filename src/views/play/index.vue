@@ -16,8 +16,16 @@
           <span>时长:{{ courseDetail.course.course_duration }}</span>
         </div>
       </div>
-      <modal @close="isShowCommentModal = false" :visible="isShowCommentModal">
-        111
+      <modal @postComment="postComment" @close="closeModal" :visible="isShowCommentModal">
+        <div class="comment-content">
+          <textarea style= "overflow-x:hidden" v-model="content" placeholder="请输入评论内容哦~" rows="5" />
+        </div>
+        <div style="margin-top:10rpx;display:flex;">
+          <span>评分：</span>
+          <div style="margin-top:-3px;">
+            <star :score="score" @changeScore="getChangeSocre" :readonly="false" />
+          </div>
+        </div>
       </modal>
       <div class="comment">
         <img @click="evaluate" src="../../assets/images/evaluate@2x.png" alt />
@@ -50,13 +58,15 @@
 import { Component, Vue } from 'vue-property-decorator'
 import NavBar from '../../components/MyNavBar.vue'
 import Modal from '../../components/Modal.vue'
+import Star from '../../components/Star.vue'
 import { Dialog } from 'vant'
 
 // 参考：https://www.jianshu.com/p/7ed6d954164f?utm_source=oschina-app
 @Component({
   components: {
     NavBar,
-    Modal
+    Modal,
+    Star
   }
 })
 export default class Play extends Vue {
@@ -65,7 +75,10 @@ export default class Play extends Vue {
       courseDetail: null, // 课程详情
       videoUrl: null, // 播放视频的url地址
       playIndex: 0, // 播放的索引
-      isShowCommentModal: false // 是否显示评论框
+      isValidateRight: false, // 是否检验过播放权限
+      isShowCommentModal: false, // 是否显示评论框
+      content: '', // 评论内容
+      score: 5 // 评论分数
     }
   }
 
@@ -97,6 +110,14 @@ export default class Play extends Vue {
 
   created() {
     this.getCourseDetailData()
+  }
+
+  updated() {
+    this.$refs.videoRef.addEventListener('play',() => {
+      if (!this.isValidateRight){
+        this.validatePlayRight()
+      }
+    })
   }
 
   async getCourseDetailData() {
@@ -179,10 +200,51 @@ export default class Play extends Vue {
 
         return Promise.resolve(false)
       } else {
+        this.isValidateRight = true
         return Promise.resolve(true) // 已经支付
       }
     } else {
       return Promise.resolve(false)
+    }
+  }
+
+  closeModal() {
+    this.isShowCommentModal = false
+  }
+
+  // 获取更改之后的分数
+  getChangeSocre(score:number) {
+    this.score = score
+  }
+
+  // 提交评论
+  async postComment(){
+    if (this.content.trim().length === 0) {
+      this.$toast({
+        type: 'fail',
+        message: '评价内容不能为空',
+        duration: 1000
+      })
+      return
+    }
+
+    const result = await this.$axios.post('comment/create',{
+      ['course_id']: this.$route.params.id,
+      content: this.content,
+      score: this.score
+    })
+
+    if (result.data.status === 0) {
+      this.closeModal()
+
+      this.$toast({
+        type: 'success',
+        message: '评价成功',
+        duration: 1000,
+        onClose: () => {
+          this.$router.go(-1)
+        }
+      })
     }
   }
 }
@@ -321,7 +383,8 @@ export default class Play extends Vue {
     width: 50px;
   }
   textarea {
-    width: 100%;
+    font-size: 15px;
+    width: 98%;
     height: 100px;
   }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div @click="closeModal" class="modal-mask" v-show="visible">
+    <div @click="closeModal" @touchmove="touchmove" class="modal-mask" v-show="visible">
         <div @click="noImplement" :style="{top:top+'px'}" class="modal-content">
             <div class="modal-title" v-if="title">{{ title }}</div>
             <div class="modal-body">
@@ -21,7 +21,6 @@
         @Prop({type:Boolean}) visible?:boolean
         // 距离顶部的距离
         @Prop({type:Number,default:175}) top!:number
-
         // 关闭窗口
         closeModal() {
             this.$emit('close')
@@ -29,13 +28,19 @@
 
         // 点击了内容区域
         noImplement(e:any) {
-            // 阻止时间冒泡
+            // 阻止事件冒泡
             e.stopPropagation()
+        }
+
+        // 手指移动
+        touchmove(e:any){
+          // 阻止事件冒泡
+          e.preventDefault()
         }
             
         // 提交
         postComment() {
-            console.log('111')
+          this.$emit('postComment')
         }
     }
 </script>

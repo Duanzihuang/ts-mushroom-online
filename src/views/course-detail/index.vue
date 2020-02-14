@@ -128,6 +128,10 @@
               />
             </div>
           </div>
+          <span
+            style="color:#636363;font-size:15px;padding-left:5px;"
+            v-if="!courseDetail.comments"
+          >暂无评论哦，请学习之后再评价~</span>
         </div>
       </div>
     </div>
@@ -243,13 +247,13 @@ export default class My extends Vue {
       ['is_like']: comment['is_like']
     })
 
-    if (res.data.status === 0) {
-      this.$toast({
-        message: res.data.message,
-        icon: 'none',
-        duration: 500
-      })
-    }
+    // if (res.data.status === 0) {
+    //   this.$toast({
+    //     message: res.data.message,
+    //     icon: 'none',
+    //     duration: 500
+    //   })
+    // }
   }
 }
 </script>
