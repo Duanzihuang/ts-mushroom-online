@@ -2,11 +2,7 @@
   <div class="my-container" v-if="userInfo">
     <!-- <nav-bar title="我的" :isShowLeftArrow="false" /> -->
     <div class="header">
-      <img
-        class="avatar"
-        :src="userInfo.avatar || '../../assets/images/avatar@2x.png'"
-        alt
-      />
+      <img class="avatar" :src="userInfo.avatar || '../../assets/images/avatar@2x.png'" alt />
       <p class="nickname">{{ userInfo.nickname || '酷小鱼' }}</p>
     </div>
     <div class="tips">
@@ -58,12 +54,15 @@ import NavBar from '../../components/MyNavBar.vue'
   }
 })
 export default class My extends Vue {
+  $axios: any
+  userInfo: any
+
   data() {
     return {
       userInfo: null
     }
   }
-  created() {
+  activated() {
     this.getUserInfoData()
   }
   async getUserInfoData() {

@@ -20,11 +20,7 @@
           <p>微信支付</p>
           <p>微信安全支付</p>
         </div>
-        <img
-          class="select-image"
-          src="../../assets/images/selected@2x.png"
-          alt=""
-        />
+        <img class="select-image" src="../../assets/images/selected@2x.png" alt="" />
       </div>
     </div>
     <p class="tip">
@@ -34,12 +30,7 @@
       <div class="content">
         <p>实付金额</p>
         <p>￥{{ price }}</p>
-        <img
-          @click="orderAndPay"
-          class="pay"
-          src="../../assets/images/wx_pay@2x.png"
-          alt
-        />
+        <img @click="orderAndPay" class="pay" src="../../assets/images/wx_pay@2x.png" alt />
       </div>
     </div>
   </div>
@@ -55,6 +46,11 @@ import NavBar from '../../components/MyNavBar.vue'
   }
 })
 export default class My extends Vue {
+  $axios: any
+  coverImageUrl: any
+  title: any
+  price: any
+
   data() {
     return {
       coverImageUrl: null, // 封面图
@@ -81,7 +77,7 @@ export default class My extends Vue {
       this.payOrder(res.data.order_id)
     }
   }
-  async payOrder(orderId) {
+  async payOrder(orderId: number) {
     const res = await this.$axios.post('order/pay', {
       ['order_id']: orderId
     })

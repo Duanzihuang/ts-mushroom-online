@@ -3,32 +3,14 @@
     <p class="phone-validate">手机号验证</p>
     <p class="subtitle">用于即使获取课程最新信息</p>
     <div class="content">
-      <input
-        v-model="phone"
-        class="phone"
-        placeholder="请输入您的手机号"
-        type="number"
-      />
-      <div
-        @click="getVcode"
-        class="get_vcode"
-        :style="{ color: isCountDown ? '#ccc' : 'black' }"
-      >
+      <input v-model="phone" class="phone" placeholder="请输入您的手机号" type="number" />
+      <div @click="getVcode" class="get_vcode" :style="{ color: isCountDown ? '#ccc' : 'black' }">
         {{ tips }}
       </div>
-      <input
-        v-model="vcode"
-        class="vcode"
-        placeholder="请输入验证码"
-        type="number"
-      />
+      <input v-model="vcode" class="vcode" placeholder="请输入验证码" type="number" />
     </div>
     <div class="phone-login">
-      <img
-        @click="phoneLogin"
-        src="../../assets/images/phone_login@2x.png"
-        alt
-      />
+      <img @click="phoneLogin" src="../../assets/images/phone_login@2x.png" alt />
     </div>
   </div>
 </template>

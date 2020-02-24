@@ -17,12 +17,15 @@ import NavBar from '../../components/MyNavBar.vue'
   }
 })
 export default class Course extends Vue {
+  $axios: any
+  courses: any
+
   data() {
     return {
       courses: []
     }
   }
-  created() {
+  activated() {
     this.getCourseListData()
   }
   async getCourseListData() {

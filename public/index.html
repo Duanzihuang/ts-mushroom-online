@@ -5,7 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <title><%= htmlWebpackPlugin.options.isProd ? '' : 'dev - ' %>蘑菇在线</title>
+    <% if (htmlWebpackPlugin.options.isProd) { %>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.4/lib/index.css">
+    <!-- 引入js文件 -->
+    <script type="text/javascript" src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/vue-router@3.1.5/dist/vue-router.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/vuex@3.1.2/dist/vuex.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/axios/0.19.2/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.4/lib/vant.min.js"></script>
+    <% } %>
   </head>
   <body>
     <noscript>

@@ -1,48 +1,48 @@
 <template>
-    <div @click="closeModal" @touchmove="touchmove" class="modal-mask" v-show="visible">
-        <div @click="noImplement" :style="{top:top+'px'}" class="modal-content">
-            <div class="modal-title" v-if="title">{{ title }}</div>
-            <div class="modal-body">
-                <slot />    
-            </div>
-            <div @click="postComment" class="modal-action">提交</div>
-        </div>
+  <div @click="closeModal" @touchmove="touchmove" class="modal-mask" v-show="visible">
+    <div @click="noImplement" :style="{ top: top + 'px' }" class="modal-content">
+      <div class="modal-title" v-if="title">{{ title }}</div>
+      <div class="modal-body">
+        <slot />
+      </div>
+      <div @click="postComment" class="modal-action">提交</div>
     </div>
+  </div>
 </template>
 
 <script lang="ts">
-    import { Vue,Component,Prop } from 'vue-property-decorator'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 
-    @Component
-    export default class Modal extends Vue{
-        // 标题
-        @Prop({type:String}) title?:string
-        // 是否可见
-        @Prop({type:Boolean}) visible?:boolean
-        // 距离顶部的距离
-        @Prop({type:Number,default:175}) top!:number
-        // 关闭窗口
-        closeModal() {
-            this.$emit('close')
-        }
+@Component
+export default class Modal extends Vue {
+  // 标题
+  @Prop({ type: String }) title?: string
+  // 是否可见
+  @Prop({ type: Boolean }) visible?: boolean
+  // 距离顶部的距离
+  @Prop({ type: Number, default: 175 }) top!: number
+  // 关闭窗口
+  closeModal() {
+    this.$emit('close')
+  }
 
-        // 点击了内容区域
-        noImplement(e:any) {
-            // 阻止事件冒泡
-            e.stopPropagation()
-        }
+  // 点击了内容区域
+  noImplement(e: any) {
+    // 阻止事件冒泡
+    e.stopPropagation()
+  }
 
-        // 手指移动
-        touchmove(e:any){
-          // 阻止事件冒泡
-          e.preventDefault()
-        }
-            
-        // 提交
-        postComment() {
-          this.$emit('postComment')
-        }
-    }
+  // 手指移动
+  touchmove(e: any) {
+    // 阻止事件冒泡
+    e.preventDefault()
+  }
+
+  // 提交
+  postComment() {
+    this.$emit('postComment')
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -5,17 +5,10 @@
       <img :src="item.icon" alt />
       <div class="meta">
         <p class="title">{{ item.title }}</p>
-        <p class="progress">
-          已学习{{ item.study_hour }}课时/{{ item.total_hour || 0 }}课时
-        </p>
+        <p class="progress">已学习{{ item.study_hour }}课时/{{ item.total_hour || 0 }}课时</p>
       </div>
       <div class="circle">
-        <progress-circle
-          :canvasId="item.sid"
-          :progress="item.study_progress"
-          :width="55"
-          :height="55"
-        ></progress-circle>
+        <progress-circle :canvasId="item.sid" :progress="item.study_progress" :width="55" :height="55"></progress-circle>
       </div>
     </div>
     <div v-if="studyProgresses.length === 0">
@@ -36,12 +29,15 @@ import ProgressCircle from '../../components/ProgressCircle.vue'
   }
 })
 export default class Study extends Vue {
+  $axios: any
+  studyProgresses: any
+
   data() {
     return {
       studyProgresses: []
     }
   }
-  created() {
+  activated() {
     this.getStudyProgressData()
   }
   async getStudyProgressData() {

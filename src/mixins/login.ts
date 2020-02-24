@@ -17,7 +17,7 @@ export default class LoginMixins extends Vue {
       // 保存token
       localStorage.setItem('my_token', res.data.token)
       // 保存到store中
-      this.$store.commit('token/setToken',res.data.token)
+      this.$store.commit('token/setToken', res.data.token)
       // 跳转到首页
       this.$router.push('/layout/home')
     } else {

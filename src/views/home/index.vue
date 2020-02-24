@@ -16,11 +16,7 @@
     <div>
       <div class="tips">
         <p>推荐课程</p>
-        <img
-          @click="goToCoursePage"
-          src="../../assets/images/arrow@2x.png"
-          alt
-        />
+        <img @click="goToCoursePage" src="../../assets/images/arrow@2x.png" alt />
       </div>
       <div class="course-container">
         <div class="course-item" v-for="item in courses" :key="item.id">
@@ -34,11 +30,7 @@
     <div>
       <div class="tips">
         <p>热门视频</p>
-        <img
-          @click="goToCourseDetail(3)"
-          src="../../assets/images/arrow@2x.png"
-          alt
-        />
+        <img @click="goToCourseDetail(3)" src="../../assets/images/arrow@2x.png" alt />
       </div>
       <div class="hot-video">
         <div class="video-item" v-for="item in videos" :key="item.id">
@@ -72,6 +64,11 @@ import NavBar from '../../components/MyNavBar.vue'
   }
 })
 export default class Home extends Vue {
+  $axios: any
+  swipers: any
+  courses: any
+  videos: any
+
   data() {
     return {
       swipers: [], // 轮播图
@@ -79,7 +76,7 @@ export default class Home extends Vue {
       videos: [] // 热门视频
     }
   }
-  created() {
+  activated() {
     this.getSwipersData()
     this.getRecommendCoursesData()
     this.getHotVideosData()

@@ -2,14 +2,7 @@
   <div class="search-container">
     <nav-bar title="搜索" />
     <div class="search-head">
-      <input
-        v-model="keyword"
-        class="search-input"
-        placeholder="请输入课程名称"
-        type="text"
-        @focus="focus"
-        @keyup.enter="getCoursesData"
-      />
+      <input v-model="keyword" class="search-input" placeholder="请输入课程名称" type="text" @focus="focus" @keyup.enter="getCoursesData" />
       <i class="iconfont icon-sousuo" style="font-size:15px;"></i>
       <span v-show="isFocus" @click="cancel" class="search-button">取消</span>
     </div>
@@ -34,6 +27,11 @@ import CourseList from '../../components/CourseList.vue'
   }
 })
 export default class Search extends Vue {
+  $axios: any
+  isFocus: any
+  keyword: any
+  courses: any
+
   data() {
     return {
       keyword: '', // 关键字

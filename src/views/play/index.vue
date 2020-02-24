@@ -18,7 +18,7 @@
       </div>
       <modal @postComment="postComment" @close="closeModal" :visible="isShowCommentModal">
         <div class="comment-content">
-          <textarea style= "overflow-x:hidden" v-model="content" placeholder="请输入评论内容哦~" rows="5" />
+          <textarea style="overflow-x:hidden" v-model="content" placeholder="请输入评论内容哦~" rows="5" />
         </div>
         <div style="margin-top:10rpx;display:flex;">
           <span>评分：</span>
@@ -35,19 +35,10 @@
     <div class="course-progress">
       <div class="title">课程进度</div>
       <div class="catelog-container">
-        <div
-          @click="playOneVideo(item, index)"
-          v-for="(item, index) in courseDetail.videos"
-          :key="item.id"
-          class="course-item"
-        >
-          <span :class="[index === playIndex ? 'active' : '']"
-            >{{ index + 1 }}.{{ item.name }}</span
-          >
+        <div @click="playOneVideo(item, index)" v-for="(item, index) in courseDetail.videos" :key="item.id" class="course-item">
+          <span :class="[index === playIndex ? 'active' : '']">{{ index + 1 }}.{{ item.name }}</span>
           <span v-if="item.is_study === 1" class="studied">已学习</span>
-          <span :class="['time', index === playIndex ? 'active' : '']" v-else>{{
-            item.duration
-          }}</span>
+          <span :class="['time', index === playIndex ? 'active' : '']" v-else>{{ item.duration }}</span>
         </div>
       </div>
     </div>
@@ -70,6 +61,15 @@ import { Dialog } from 'vant'
   }
 })
 export default class Play extends Vue {
+  $axios: any
+  courseDetail: any
+  isValidateRight: any
+  playIndex: any
+  videoUrl: any
+  isShowCommentModal: any
+  content: any
+  score: any
+
   data() {
     return {
       courseDetail: null, // 课程详情
@@ -113,8 +113,8 @@ export default class Play extends Vue {
   }
 
   updated() {
-    this.$refs.videoRef.addEventListener('play',() => {
-      if (!this.isValidateRight){
+    ;(this.$refs.videoRef as any).addEventListener('play', () => {
+      if (!this.isValidateRight) {
         this.validatePlayRight()
       }
     })
@@ -158,10 +158,9 @@ export default class Play extends Vue {
     // 检测播放权限
     const isCanPlay = await this.validatePlayRight()
     if (!isCanPlay) return
-
-    this.$refs.videoRef.src = item.video_url
+    ;(this.$refs.videoRef as any).src = item.video_url
     setTimeout(() => {
-      this.$refs.videoRef.play()
+      ;(this.$refs.videoRef as any).play()
     }, 200)
 
     // 记录播放进度
@@ -177,14 +176,12 @@ export default class Play extends Vue {
 
   // 检查视频播放权限
   async validatePlayRight() {
-    const result = await this.$axios.get(
-      `order/paystatus?course_id=${this.$route.params.id}`
-    )
+    const result = await this.$axios.get(`order/paystatus?course_id=${this.$route.params.id}`)
 
     if (result.data.status === 0) {
       if (result.data.pay_status === 0) {
         // 未支付
-        this.$refs.videoRef.pause()
+        ;(this.$refs.videoRef as any).pause()
         Dialog.confirm({
           title: '提示',
           message: '您还没有支付，请先支付后，\n再来观看哦~'
@@ -213,12 +210,12 @@ export default class Play extends Vue {
   }
 
   // 获取更改之后的分数
-  getChangeSocre(score:number) {
+  getChangeSocre(score: number) {
     this.score = score
   }
 
   // 提交评论
-  async postComment(){
+  async postComment() {
     if (this.content.trim().length === 0) {
       this.$toast({
         type: 'fail',
@@ -228,7 +225,7 @@ export default class Play extends Vue {
       return
     }
 
-    const result = await this.$axios.post('comment/create',{
+    const result = await this.$axios.post('comment/create', {
       ['course_id']: this.$route.params.id,
       content: this.content,
       score: this.score

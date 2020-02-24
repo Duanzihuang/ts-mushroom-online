@@ -1,11 +1,6 @@
 <template>
   <div class="course-container">
-    <router-link
-      :to="'course-detail?id=' + item.id"
-      class="course-item"
-      v-for="item in courses"
-      :key="item.id"
-    >
+    <router-link :to="'/course-detail/' + item.id" class="course-item" v-for="item in courses" :key="item.id">
       <img :src="item.icon" alt />
       <p class="title">{{ item.title }}</p>
       <p class="subtitle">{{ item.subtitle }}</p>

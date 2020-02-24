@@ -1,12 +1,6 @@
 <template>
   <div>
-    <van-nav-bar
-      fixed
-      :title="title"
-      @click-left="onClickLeft"
-      :left-text="leftText"
-      :left-arrow="isShowLeftArrow"
-    >
+    <van-nav-bar fixed :title="title" @click-left="onClickLeft" :left-text="leftText" :left-arrow="isShowLeftArrow">
       <slot />
     </van-nav-bar>
   </div>

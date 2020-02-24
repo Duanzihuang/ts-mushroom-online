@@ -7,10 +7,10 @@
 <style lang="scss">
 //导入样式
 @import './assets/iconfont/iconfont.css';
-body{
+body {
   background-color: #f8f8f8;
 }
-p{
+p {
   margin: 0;
 }
 </style>

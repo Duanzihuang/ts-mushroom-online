@@ -1,9 +1,5 @@
 <template>
-  <div
-    style="padding-top:46px;"
-    class="course-detail-container"
-    v-if="courseDetail"
-  >
+  <div style="padding-top:46px;" class="course-detail-container" v-if="courseDetail">
     <!-- 导航条 -->
     <nav-bar title="课程详情" />
     <!-- 1.0 封面图 -->
@@ -11,21 +7,12 @@
       <div v-if="!isPlaying" class="cover_image">
         <img :src="courseDetail.course.cover_image_url" alt />
         <div class="play">
-          <img
-            @click="playCourseVideo"
-            src="../../assets/images/play@2x.png"
-            alt
-          />
+          <img @click="playCourseVideo" src="../../assets/images/play@2x.png" alt />
           <p>播放课程简介</p>
         </div>
       </div>
       <div v-else class="course_video">
-        <video
-          controls="controls"
-          ref="videoRef"
-          :src="courseDetail.course.course_video_url"
-          autoplay
-        ></video>
+        <video controls="controls" ref="videoRef" :src="courseDetail.course.course_video_url" autoplay></video>
       </div>
     </div>
     <!-- 2.0 简介 -->
@@ -40,32 +27,21 @@
         <p>{{ courseDetail.course.study_count }}人在学</p>
       </div>
       <div class="study-share">
-        <img
-          @click="goToStudy"
-          src="../../assets/images/start_study@2x.png"
-          alt
-        />
+        <img @click="goToStudy" src="../../assets/images/start_study@2x.png" alt />
         <button class="share-button" plain></button>
       </div>
     </div>
     <!-- 3.0 目录、讲师介绍、评价 -->
     <div class="catalog">
       <div class="head">
-        <span
-          :class="[index == selectIndex ? 'active' : '']"
-          v-for="(item, index) in menus"
-          :key="index"
-          @click="toggleSelect(index)"
-        >
+        <span :class="[index == selectIndex ? 'active' : '']" v-for="(item, index) in menus" :key="index" @click="toggleSelect(index)">
           {{ item }}
         </span>
       </div>
       <div class="body">
         <!-- 目录 -->
         <div class="catelog-container" v-if="selectIndex === 0">
-          <p v-for="(item, index) in courseDetail.videos" :key="item.id">
-            {{ index + 1 }}.{{ item.name }}
-          </p>
+          <p v-for="(item, index) in courseDetail.videos" :key="item.id">{{ index + 1 }}.{{ item.name }}</p>
         </div>
         <!-- 讲师介绍 -->
         <div class="lecturer-container" v-else-if="selectIndex === 1">
@@ -75,37 +51,20 @@
               <p>{{ courseDetail.lecturer.name }}</p>
               <p>关注人数：{{ courseDetail.lecturer.follow_count }}</p>
             </div>
-            <span
-              @click="
-                followOrUnFollow(
-                  courseDetail.lecturer.is_follow,
-                  courseDetail.lecturer.id
-                )
-              "
-              :class="[
-                courseDetail.lecturer.is_follow === 1 ? 'follow' : 'unfollow'
-              ]"
-            >
+            <span @click="followOrUnFollow(courseDetail.lecturer.is_follow, courseDetail.lecturer.id)" :class="[courseDetail.lecturer.is_follow === 1 ? 'follow' : 'unfollow']">
               {{ courseDetail.lecturer.is_follow === 1 ? '已关注' : '关注' }}
             </span>
           </div>
           <div v-if="courseDetail.lecturer" class="introduce">
             <p>{{ courseDetail.lecturer.introduction }}</p>
           </div>
-          <p
-            style="color:#636363;font-size:15px;"
-            v-if="!courseDetail.lecturer"
-          >
+          <p style="color:#636363;font-size:15px;" v-if="!courseDetail.lecturer">
             暂无讲师简介哦~
           </p>
         </div>
         <!-- 评价 -->
         <div v-else class="comment-container">
-          <div
-            class="comment-item"
-            v-for="item in courseDetail.comments"
-            :key="item.id"
-          >
+          <div class="comment-item" v-for="item in courseDetail.comments" :key="item.id">
             <div class="info">
               <img :src="item.avatar" alt />
               <div class="nickname-content">
@@ -121,17 +80,10 @@
               <div class="time">{{ item.comment_time }}</div>
             </div>
             <div class="star">
-              <img
-                @click="like(item)"
-                :src="item.is_like === 1 ? unlikeImg : likeImg"
-                alt
-              />
+              <img @click="like(item)" :src="item.is_like === 1 ? unlikeImg : likeImg" alt />
             </div>
           </div>
-          <span
-            style="color:#636363;font-size:15px;padding-left:5px;"
-            v-if="!courseDetail.comments"
-          >暂无评论哦，请学习之后再评价~</span>
+          <span style="color:#636363;font-size:15px;padding-left:5px;" v-if="!courseDetail.comments">暂无评论哦，请学习之后再评价~</span>
         </div>
       </div>
     </div>
@@ -150,6 +102,12 @@ import Star from '../../components/Star.vue'
   }
 })
 export default class My extends Vue {
+  $axios: any
+  courseDetail: any
+  isPlaying: any
+  selectIndex: any
+  menus: any
+
   data() {
     return {
       courseDetail: null, // 课程详情数据
@@ -178,7 +136,7 @@ export default class My extends Vue {
   }
   // 跳转到学习页面
   goToStudy() {
-    this.$refs.videoRef && this.$refs.videoRef.pause()
+    this.$refs.videoRef && (this.$refs.videoRef as any).pause()
     this.$router.push(`/play/${this.$route.params.id}`)
   }
   async toggleSelect(index: number) {
